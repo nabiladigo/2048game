@@ -10,6 +10,7 @@ const width = 4;
         let randumNumber = Math.floor(Math.random()*tiles.length);
             if (tiles[randumNumber].innerHTML == ""){
                 tiles[randumNumber].innerHTML=2;
+                gameOver()
             }else generateNum();
     }
         generateNum();
@@ -62,9 +63,9 @@ const width = 4;
                 let newColumn = filteredColumn.concat(empty); 
             
                 tiles[i].innerHTML = newColumn[0];
-                tiles[i+1].innerHTML = newColumn[1];
-                tiles[i+2].innerHTML = newColumn[2];
-                tiles[i+3].innerHTML = newColumn[3];
+                tiles[i+(width)].innerHTML = newColumn[1];
+                tiles[i+(width*2)].innerHTML = newColumn[2];
+                tiles[i+(width*3)].innerHTML = newColumn[3];
         }
 
     }
@@ -81,9 +82,9 @@ const width = 4;
             let newColumn = empty.concat(filteredColumn); 
             
                 tiles[i].innerHTML = newColumn[0];
-                tiles[i+1].innerHTML = newColumn[1];
-                tiles[i+2].innerHTML = newColumn[2];
-                tiles[i+3].innerHTML = newColumn[3];
+                tiles[i+width].innerHTML = newColumn[1];
+                tiles[i+(width*2)].innerHTML = newColumn[2];
+                tiles[i+(width*3)].innerHTML = newColumn[3];
          }
 
     }
@@ -93,8 +94,8 @@ const width = 4;
         for(let i=0; i<15; i++){
             if (tiles[i].innerHTML === tiles[i+1].innerHTML && tiles[i].innerHTML !==""){
                 let combinedTotal =parseInt(tiles[i].innerHTML) + parseInt(tiles[i+1].innerHTML);
-                tiles[i].innerHTML = combinedTotal;
-                tiles[i+1].innerHTML = "";
+                tiles[i+1].innerHTML = combinedTotal;
+                tiles[i].innerHTML = "";
                 gameScore += combinedTotal;
                 score.innerHTML ="Score :" + gameScore;
             }
@@ -107,8 +108,8 @@ const width = 4;
         for(let i=0; i<12; i++){
             if (tiles[i].innerHTML === tiles[i+width].innerHTML && tiles[i].innerHTML !== ""){
                 let combinedTotal =parseInt(tiles[i].innerHTML) + parseInt(tiles[i+width].innerHTML);
-                tiles[i].innerHTML = combinedTotal;
-                tiles[i+width].innerHTML = "";
+                tiles[i+width].innerHTML = combinedTotal;
+                tiles[i].innerHTML = "";
                 gameScore += combinedTotal;
                 score.innerHTML ="Score :" + gameScore;
             }
@@ -123,7 +124,6 @@ const width = 4;
         moveRight();
         generateNum();
         addColors();
-        gameOver();
     }
 
     function keyLeft(){
@@ -132,7 +132,6 @@ const width = 4;
         moveLeft();
         generateNum();
         addColors();
-        gameOver();
     }
 
     function keyUp(){
@@ -141,7 +140,6 @@ const width = 4;
         moveUp();
         generateNum();
         addColors();
-        gameOver();
     }
 
     function keyDown(){
@@ -150,7 +148,6 @@ const width = 4;
         moveDown();
         generateNum();
         addColors();
-        gameOver();
     }
 
     function control(e) {
@@ -174,13 +171,17 @@ const width = 4;
         }
     }
 
-
     function gameOver(){
-        let filledSquare = square => square.innerHTML != "";
-        let tileArray = Array.from(tiles);
-        if(tileArray.every(filledSquare)){
-            gameStatus.innerHTML = `Game Over`;
+        let zeros = ""
+        for( let i = 0; i <tiles.length; i++){
+            if (tiles[i].innerHTML ==0){
+                zeros++
+            }
+        }
+        if (zeros === "" && tiles[i] != tiles[i+1]){
+            gameStatus.innerHTML = ' You lose!'
             document.removeEventListener("keyup",control);
+
         }
     }
    
@@ -189,6 +190,7 @@ function handleNewGame() {
         if(tiles[i].innerHTML != "" && tiles.length === 16){
             tiles[i].innerHTML = "";
             gameStatus.innerHTML = "";
+            
             score.innerHTML = "Score :" + 0;
         }
     } 
