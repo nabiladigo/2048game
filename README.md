@@ -21,4 +21,6 @@ the game's goal is to slide numberd tiles on the board to combine them creating 
 
 ## link to 2048 game :
 
-https://pages.git.generalassemb.ly/nabiladigo/2048game/
+https://pages.git.generalassemb.ly/nabiladigo/2048game
+this is on netlify:
+https://637945501f7d12173ad03fd1--nd2048game.netlify.app/
