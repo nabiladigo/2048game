@@ -14,7 +14,6 @@ const width = 4;
             }else generateNum();
     }
         generateNum();
-        generateNum();
   
 
     function moveRight(){
